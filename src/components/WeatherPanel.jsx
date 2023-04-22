@@ -3,7 +3,7 @@ import Card from "./Card";
 import Button from "./Button";
 import NavBar from "./NavBar";
 
-const cities = ["Buenos Aires", "Santa Fe", "Córdoba", "Neuquen", "San Luis"];
+const cities = ["Salta", "Santa Fe", "Córdoba", "Neuquen", "San Luis"];
 
 function WeatherPanel() {
   const [weather, setWeather] = useState([]);
