@@ -25,9 +25,10 @@ function WeatherPanel() {
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
+        console.log("Geolocalización: ", position);
         const { latitude, longitude } = position.coords;
         setCurrentLocation({ latitude, longitude });
+        setSelectedCity("");
       });
     }
   };
@@ -86,58 +87,6 @@ function WeatherPanel() {
         });
     }
   }, [currentLocation, selectedCity]);
-
-  useEffect(() => {
-    if (selectedCity) {
-      setLoading(true);
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&units=metric&appid=8f038170deb6063a7bd475915f57cec4&lang=es`;
-      fetch(url)
-        .then((response) => console.log(response))
-        .then((response) => {
-          if (!response.ok) {
-            throw Error("No se pudo obtener el clima");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("datos pegada ciudad: ", data);
-          setWeatherData(data);
-          setLoading(false);
-          setShow(true);
-        })
-        .catch((error) => {
-          console.log("error pegada ciudad: ", error);
-          setLoading(false);
-          setShow(false);
-        });
-    }
-  }, [selectedCity]);
-
-  useEffect(() => {
-    if (selectedCity) {
-      setLoading(true);
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&units=metric&appid=8f038170deb6063a7bd475915f57cec4&lang=es`;
-      fetch(url)
-        .then((response) => {
-          console.log(response);
-          if (!response.ok) {
-            throw Error("No se pudo obtener el clima");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("datos pegada ciudad: ", data);
-          setWeatherData(data);
-          setLoading(false);
-          setShow(true);
-        })
-        .catch((error) => {
-          console.log("error pegada ciudad: ", error);
-          setLoading(false);
-          setShow(false);
-        });
-    }
-  }, [selectedCity]);
 
   return (
     <div>
