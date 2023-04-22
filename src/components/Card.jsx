@@ -1,53 +1,59 @@
+import { useState, useEffect } from "react";
 import Spinner from "./Spinner";
-
 import {
   HiOutlineArrowNarrowDown,
   HiOutlineArrowNarrowUp,
 } from "react-icons/hi";
 
-function Card({ showData, loadingData, weather, forecast }) {
-  var today = new Date();
-  // Fecha
-  var day = today.getDate();
-  var month = today.getMonth() + 1;
-  var year = today.getFullYear();
-  var date = day + "/" + month + "/" + year;
-  // Hora
-  var hour = today.getHours();
-  var minutes = today.getMinutes();
-  if (minutes < 10) {
-    minutes = "0" + minutes;
-  }
-  var time = hour + ":" + minutes;
+const Card = ({ showData, loadingData, weather, forecast }) => {
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [iconUrl, setIconUrl] = useState("");
 
-  var url = "";
-  var iconUrl = "";
+  useEffect(() => {
+    const today = new Date();
+    // Fecha
+    const day = today.getDate();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+    setDate(formattedDate);
 
-  if (loadingData) return <Spinner />;
+    // Hora
+    let hour = today.getHours();
+    let minutes = today.getMinutes();
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    const formattedTime = `${hour}:${minutes}`;
+    setTime(formattedTime);
 
-  if (showData) {
-    url = "https://openweathermap.org/img/wn/";
-    iconUrl = url + weather.weather[0].icon + ".png";
-  }
+    if (showData) {
+      const url = "https://openweathermap.org/img/wn/";
+      const iconUrl = url + weather.weather[0].icon + ".png";
+      setIconUrl(iconUrl);
+    }
+  }, [showData, weather]);
 
   const daysOfWeek = ["DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB"];
 
-  let todayIndex = today.getDay();
+  const forecastData = forecast?.list
+    ?.slice(1, 6)
+    ?.map((forecastItem, index) => {
+      const todayIndex = new Date().getDay();
+      const dayOfWeekIndex = (todayIndex + index + 1) % 7;
+      const dayOfWeek = daysOfWeek[dayOfWeekIndex];
+      return {
+        dayOfWeek,
+        maxTemp: forecastItem.main.temp_max.toFixed(1),
+        minTemp: forecastItem.main.temp_min.toFixed(1),
+        icon: `https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}.png`,
+      };
+    });
 
-  const forecastList =
-    forecast && forecast.list ? forecast.list.slice(1, 6) : [];
-
-  const forecastData = forecastList.map((forecastItem, index) => {
-    const date = new Date(forecastItem.dt * 1000);
-    const dayOfWeekIndex = (todayIndex + index + 1) % 7;
-    const dayOfWeek = daysOfWeek[dayOfWeekIndex];
-    return {
-      dayOfWeek,
-      maxTemp: forecastItem.main.temp_max.toFixed(1),
-      minTemp: forecastItem.main.temp_min.toFixed(1),
-      icon: url + forecastItem.weather[0].icon + ".png",
-    };
-  });
+  if (loadingData) {
+    return <Spinner />;
+  }
 
   return (
     <div>
@@ -67,7 +73,6 @@ function Card({ showData, loadingData, weather, forecast }) {
             </div>
             <div className="flex flex-col justify-between items-center w-full">
               <div className="flex flex-col justify-center items-end gap-1 w-full">
-                {/* necesito la hora */}
                 <h4 className="text-4xl font-semibold text-white">{time}</h4>
                 <h4 className="text-lg font-semibold ">{date}</h4>
               </div>
@@ -94,7 +99,7 @@ function Card({ showData, loadingData, weather, forecast }) {
           <hr />
           <div>
             <div>
-              {forecastData.map((forecastItem, index) => {
+              {forecastData?.map((forecastItem, index) => {
                 return (
                   <div
                     className="flex justify-between items-center w-full pt-3"
@@ -120,6 +125,6 @@ function Card({ showData, loadingData, weather, forecast }) {
       )}
     </div>
   );
-}
+};
 
 export default Card;
