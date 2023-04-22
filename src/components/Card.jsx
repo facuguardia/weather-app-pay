@@ -12,14 +12,12 @@ const Card = ({ showData, loadingData, weather, forecast }) => {
 
   useEffect(() => {
     const today = new Date();
-    // Fecha
     const day = today.getDate();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
     setDate(formattedDate);
 
-    // Hora
     let hour = today.getHours();
     let minutes = today.getMinutes();
     if (minutes < 10) {
@@ -58,7 +56,7 @@ const Card = ({ showData, loadingData, weather, forecast }) => {
   return (
     <div>
       {showData === true ? (
-        <>
+        <div className="pt-5">
           <div className="bg-gray-800 grid grid-cols-2 gap-2 w-full h-60 p-3 rounded-lg text-gray-300">
             <div className="flex flex-col justify-center items-center">
               <div className="text-3xl font-bold text-white">
@@ -117,11 +115,9 @@ const Card = ({ showData, loadingData, weather, forecast }) => {
               })}
             </div>
           </div>
-        </>
-      ) : (
-        <div className="flex justify-center items-center text-orange-300">
-          <h1></h1>
         </div>
+      ) : (
+        <></>
       )}
     </div>
   );
