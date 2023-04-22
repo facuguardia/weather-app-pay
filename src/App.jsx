@@ -1,15 +1,15 @@
-import NavBar from "./components/NavBar";
 import WeatherPanel from "./components/WeatherPanel";
 import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="bg-gray-900 w-full min-h-screen text-white flex flex-col justify-between items-center p-3">
-      <div className="flex flex-col items-center" >
-        <NavBar />
+    <div className="bg-gray-900 w-full min-h-screen text-white flex flex-col justify-between lg:justify-center items-center lg:items-stretch gap-5 p-3">
+      <div>
         <WeatherPanel />
       </div>
-      <Footer />
+      <div className=" ">
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "./Card";
+import Button from "./Button";
+import NavBar from "./NavBar";
 
 const cities = ["Buenos Aires", "Santa Fe", "Córdoba", "Neuquen", "San Luis"];
 
@@ -89,48 +91,27 @@ function WeatherPanel() {
   }, [currentLocation, selectedCity]);
 
   return (
-    <div>
-      <div className="flex justify-between items-center gap-4 pb-5">
-        <div>
-          <button
-            className="border border-orange-300 py-2 px-4 rounded-full bg-orange-400 hover:bg-orange-300 transition-all duration-300 font-medium text-md text-black"
-            onClick={getCurrentLocation}
-          >
-            Ubicación actual
-          </button>
-        </div>
-        <div>
-          <select
-            className="bg-gray-900 py-2 px-4 rounded-md text-sm items-center"
-            onChange={handleCityChange}
-          >
-            <option>Selecciona una ciudad</option>
-            {cities.map((city) => (
-              <option key={city} value={city}>
-                {city}
-              </option>
-            ))}
-          </select>
-          {show && (
-            <div>
-              <Card data={weatherData} loading={loading} />
-              {forecast.list && forecast.list.length !== 0 ? (
-                forecast.list.map((forecast) => (
-                  <Card key={forecast.dt} forecast={forecast} />
-                ))
-              ) : (
-                <div></div>
-              )}
-            </div>
-          )}
-        </div>
+    <div className="flex flex-col lg:flex-row justify-between items-center lg:pb-20 lg:pt-20">
+      <div className="flex flex-col justify-center items-center">
+        <NavBar />
+        <Button
+          getCurrentLocation={getCurrentLocation}
+          handleCityChange={handleCityChange}
+          cities={cities}
+          weatherData={weatherData}
+          loading={loading}
+          show={show}
+          forecast={forecast}
+        />
       </div>
-      <Card
-        showData={show}
-        loadingData={loading}
-        weather={weather}
-        forecast={forecast}
-      />
+      <div>
+        <Card
+          showData={show}
+          loadingData={loading}
+          weather={weather}
+          forecast={forecast}
+        />
+      </div>
     </div>
   );
 }
