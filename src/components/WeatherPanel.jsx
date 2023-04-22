@@ -165,10 +165,13 @@ function WeatherPanel() {
           {show && (
             <div>
               <Card data={weatherData} loading={loading} />
-
-              {forecast.list.map((forecast) => (
-                <Card key={forecast.dt} forecast={forecast} />
-              ))}
+              {forecast.list && forecast.list.length !== 0 ? (
+                forecast.list.map((forecast) => (
+                  <Card key={forecast.dt} forecast={forecast} />
+                ))
+              ) : (
+                <div></div>
+              )}
             </div>
           )}
         </div>
