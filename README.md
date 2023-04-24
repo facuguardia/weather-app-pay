@@ -22,7 +22,7 @@ Antes de comenzar, necesitará las siguientes herramientas instaladas en su equi
 # Ejecutando la App
 ```
 # Clone este repositorio
-git clone https://github.com/facuguardia/weather-app-pay
+git clone https://github.com/facuguardia/weather-app-pay.git
 
 # Acceda a la carpeta del proyecto desde la terminal/cmd
 cd weather-app-pay
