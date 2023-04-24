@@ -107,7 +107,7 @@ function WeatherPanel() {
 
   return (
     <div className="flex flex-col justify-between lg:grid lg:grid-cols-2 content-center">
-      <div className="flex flex-col justify-center items-center gap-10 w-50">
+      <div className="flex flex-col justify-center items-center gap-7 w-50">
         <div>
           <NavBar />
         </div>

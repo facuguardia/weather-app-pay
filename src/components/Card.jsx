@@ -60,7 +60,7 @@ const Card = ({ showData, loadingData, weather, forecast }) => {
     <div>
       {showData === true ? (
         <div className="flex flex-col justify-center items-center">
-          <div className="grid grid-cols-2 gap-12 h-64 pt-5 pb-2 text-gray-300">
+          <div className="grid grid-cols-2 gap-12 h-64 pt-3 pb-2 text-gray-300">
             <div className="flex flex-col justify-center items-center pt-3">
               <div className="text-4xl font-bold text-white">
                 <h3>{weather.name}</h3>
