@@ -17,7 +17,7 @@ Este proyecto fue desarrollado como challenge para el puesto de desarrollador fr
 [![mobile-pay.png](https://i.postimg.cc/zfmzbhbv/mobile-pay.png)](https://postimg.cc/SnrFHJGb)
 
 # Requisitos
-Antes de comenzar, necesitará las siguientes herramientas instaladas en su equipo: [Git](https://git-scm.com/) y [Node.js > v12](https://nodejs.org/en/). Además, es recomendable tener un editor para trabajar con el código como [VSCode](https://code.visualstudio.com/)
+Antes de comenzar, necesitará las siguientes herramientas instaladas en su equipo: [Git](https://git-scm.com/) y [Node.js > v12](https://nodejs.org/en/). Además, es recomendable tener un editor para trabajar con el código como [VSCode](https://code.visualstudio.com/).
 
 # Ejecutando la App
 ```
