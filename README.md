@@ -1,7 +1,9 @@
 # Weather App
-Este es un proyecto de aplicación web que ofrece información sobre el pronóstico del tiempo para la ciudad actual del usuario. La aplicación muestra datos en tiempo real sobre la temperatura y pronósticos para los próximos 5 días. Además, incluye la opción de seleccionar una ciudad de una lista y ver la información meteorológica correspondiente.
+Es una App full client-side que ofrece información sobre el pronóstico del tiempo para la ciudad actual del usuario. La aplicación muestra datos en tiempo real sobre la temperatura y pronósticos para los próximos 5 días. Además, incluye la opción de seleccionar una ciudad de una lista y ver la información meteorológica correspondiente.
 
 Este proyecto fue desarrollado como challenge para el puesto de desarrollador frontend en la empresa Personal Pay.
+
+### Deploys: https://weather-app-pay.netlify.app/
 
 # Vista Previa Proyecto
 ## Desktop
@@ -17,12 +19,12 @@ Este proyecto fue desarrollado como challenge para el puesto de desarrollador fr
 [![mobile-pay.png](https://i.postimg.cc/zfmzbhbv/mobile-pay.png)](https://postimg.cc/SnrFHJGb)
 
 # Requisitos
-Antes de comenzar, necesitará las siguientes herramientas instaladas en su equipo: [Git](https://git-scm.com/) y [Node.js > v12](https://nodejs.org/en/). Además, es recomendable tener un editor para trabajar con el código como [VSCode](https://code.visualstudio.com/)
+Antes de comenzar, necesitará las siguientes herramientas instaladas en su equipo: [Git](https://git-scm.com/) y [Node.js > v12](https://nodejs.org/en/). Además, es recomendable tener un editor para trabajar con el código como [VSCode](https://code.visualstudio.com/).
 
 # Ejecutando la App
 ```
 # Clone este repositorio
-git clone https://github.com/facuguardia/weather-app-pay
+git clone https://github.com/facuguardia/weather-app-pay.git
 
 # Acceda a la carpeta del proyecto desde la terminal/cmd
 cd weather-app-pay
