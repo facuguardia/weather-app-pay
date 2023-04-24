@@ -1,15 +1,13 @@
-import WeatherPanel from "./components/WeatherPanel";
+import WeatherPanel from "./container/WeatherPanel";
 import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="bg-gray-900 w-full min-h-screen text-white flex flex-col justify-between lg:justify-center items-center lg:items-stretch gap-5 p-3">
-      <div>
+    <div className="bg-gradient-to-r from-slate-900 to-slate-700 w-full h-screen overflow-hidden flex flex-col justify-between p-2">
+      <div className="text-white flex flex-col justify-between md:justify-center w-full h-screen pl-3">
         <WeatherPanel />
       </div>
-      <div className=" ">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

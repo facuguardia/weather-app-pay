@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Card from "./Card";
-import Button from "./Button";
-import NavBar from "./NavBar";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import NavBar from "../components/NavBar";
 
 const cities = ["Salta", "Santa Fe", "Córdoba", "Neuquen", "San Luis"];
 
@@ -12,7 +12,6 @@ function WeatherPanel() {
   const [show, setShow] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  const [weatherData, setWeatherData] = useState(null);
 
   const handleCityChange = async (e) => {
     const city = e.target.value;
@@ -26,12 +25,27 @@ function WeatherPanel() {
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log("Geolocalización: ", position);
-        const { latitude, longitude } = position.coords;
-        setCurrentLocation({ latitude, longitude });
-        setSelectedCity("");
-      });
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then((permissionStatus) => {
+          if (permissionStatus.state === "granted") {
+            navigator.geolocation.getCurrentPosition((position) => {
+              // console.log("Geolocalización: ", position);
+              const { latitude, longitude } = position.coords;
+              setCurrentLocation({ latitude, longitude });
+              setSelectedCity("");
+            });
+          } else if (permissionStatus.state === "prompt") {
+            navigator.geolocation.getCurrentPosition((position) => {
+              // console.log("Geolocalización: ", position);
+              const { latitude, longitude } = position.coords;
+              setCurrentLocation({ latitude, longitude });
+              setSelectedCity("");
+            });
+          } else {
+            console.log("El usuario ha denegado el permiso de geolocalización");
+          }
+        });
     }
   };
 
@@ -41,6 +55,7 @@ function WeatherPanel() {
       selectedCity
     ) {
       setLoading(true);
+
       let urlCurrentWhater;
       let urlCurrentForecast;
 
@@ -60,11 +75,11 @@ function WeatherPanel() {
           return response.json();
         })
         .then((weatherData) => {
-          console.log("datos pegada: ", weatherData);
+          // console.log("datos pegada urlCurrentWhater: ", weatherData);
           setWeather(weatherData);
         })
         .catch((error) => {
-          console.log("error pegada: ", error);
+          console.log("error pegada urlCurrentWhater: ", error);
           setLoading(false);
           setShow(false);
         });
@@ -77,13 +92,13 @@ function WeatherPanel() {
           return response.json();
         })
         .then((forecastData) => {
-          console.log("datos pegada 2: ", forecastData);
+          // console.log("datos pegada urlCurrentForecast: ", forecastData);
           setForecast(forecastData);
           setLoading(false);
           setShow(true);
         })
         .catch((error) => {
-          console.log("error pegada 2: ", error);
+          console.log("error pegada urlCurrentForecast: ", error);
           setLoading(false);
           setShow(false);
         });
@@ -91,18 +106,18 @@ function WeatherPanel() {
   }, [currentLocation, selectedCity]);
 
   return (
-    <div className="flex flex-col lg:flex-row justify-between items-center lg:pb-20 lg:pt-20">
-      <div className="flex flex-col justify-center items-center">
-        <NavBar />
-        <Button
-          getCurrentLocation={getCurrentLocation}
-          handleCityChange={handleCityChange}
-          cities={cities}
-          weatherData={weatherData}
-          loading={loading}
-          show={show}
-          forecast={forecast}
-        />
+    <div className="flex flex-col justify-between lg:grid lg:grid-cols-2 content-center">
+      <div className="flex flex-col justify-center items-center gap-10 w-50">
+        <div>
+          <NavBar />
+        </div>
+        <div>
+          <Button
+            getCurrentLocation={getCurrentLocation}
+            handleCityChange={handleCityChange}
+            cities={cities}
+          />
+        </div>
       </div>
       <div>
         <Card

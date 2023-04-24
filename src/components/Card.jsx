@@ -5,49 +5,52 @@ import {
   HiOutlineArrowNarrowUp,
 } from "react-icons/hi";
 
+const daysOfWeek = ["DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB"];
+
 const Card = ({ showData, loadingData, weather, forecast }) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [iconUrl, setIconUrl] = useState("");
+  const [forecastData, setForecastData] = useState([]);
+
+  // Fecha
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const formattedDate = `${day}/${month}/${year}`;
+  // Hora
+  var hour = today.getHours();
+  var minutes = today.getMinutes();
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  const formattedTime = `${hour}:${minutes}`;
 
   useEffect(() => {
-    const today = new Date();
-    const day = today.getDate();
-    const month = today.getMonth() + 1;
-    const year = today.getFullYear();
-    const formattedDate = `${day}/${month}/${year}`;
-    setDate(formattedDate);
-
-    let hour = today.getHours();
-    let minutes = today.getMinutes();
-    if (minutes < 10) {
-      minutes = "0" + minutes;
-    }
-    const formattedTime = `${hour}:${minutes}`;
-    setTime(formattedTime);
-
     if (showData) {
       const url = "https://openweathermap.org/img/wn/";
       const iconUrl = url + weather.weather[0].icon + ".png";
       setIconUrl(iconUrl);
     }
-  }, [showData, weather]);
+    setDate(formattedDate);
+    setTime(formattedTime);
 
-  const daysOfWeek = ["DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB"];
-
-  const forecastData = forecast?.list
-    ?.slice(1, 6)
-    ?.map((forecastItem, index) => {
-      const todayIndex = new Date().getDay();
-      const dayOfWeekIndex = (todayIndex + index + 1) % 7;
-      const dayOfWeek = daysOfWeek[dayOfWeekIndex];
-      return {
-        dayOfWeek,
-        maxTemp: forecastItem.main.temp_max.toFixed(1),
-        minTemp: forecastItem.main.temp_min.toFixed(1),
-        icon: `https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}.png`,
-      };
-    });
+    const forecastData = forecast?.list
+      ?.slice(1, 6)
+      ?.map((forecastItem, index) => {
+        const todayIndex = new Date().getDay();
+        const dayOfWeekIndex = (todayIndex + index + 1) % 7;
+        const dayOfWeek = daysOfWeek[dayOfWeekIndex];
+        return {
+          dayOfWeek,
+          maxTemp: forecastItem.main.temp_max.toFixed(1),
+          minTemp: forecastItem.main.temp_min.toFixed(1),
+          icon: `https://openweathermap.org/img/wn/${forecastItem.weather[0].icon}.png`,
+        };
+      });
+    setForecastData(forecastData);
+  }, [showData, weather, forecast]);
 
   if (loadingData) {
     return <Spinner />;
@@ -56,10 +59,10 @@ const Card = ({ showData, loadingData, weather, forecast }) => {
   return (
     <div>
       {showData === true ? (
-        <div className="pt-5 lg:pt-0 lg:pr-28">
-          <div className="bg-gray-800 grid grid-cols-2 gap-2 w-full h-60 p-5 rounded-lg text-gray-300">
-            <div className="flex flex-col justify-center items-center">
-              <div className="text-3xl font-bold text-white">
+        <div className="flex flex-col justify-center items-center">
+          <div className="grid grid-cols-2 gap-12 h-64 pt-5 pb-2 text-gray-300">
+            <div className="flex flex-col justify-center items-center pt-3">
+              <div className="text-4xl font-bold text-white">
                 <h3>{weather.name}</h3>
               </div>
               <div className="flex flex-col justify-center items-center">
@@ -69,14 +72,14 @@ const Card = ({ showData, loadingData, weather, forecast }) => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col justify-between items-center w-full">
-              <div className="flex flex-col justify-center items-end gap-1 w-full">
-                <h4 className="text-4xl font-semibold text-white">{time}</h4>
+            <div className="flex flex-col justify-between items-center">
+              <div className="flex flex-col justify-center items-end gap-1 w-full pt-4">
+                <h4 className="text-2xl font-semibold text-white">{time}</h4>
                 <h4 className="text-lg font-semibold ">{date}</h4>
               </div>
               <div className="flex flex-col items-end gap-5 w-full">
                 <div>
-                  <h1 className="text-6xl text-white">
+                  <h1 className="text-6xl text-white font-bold">
                     {weather.main.temp.toFixed(1)}°
                   </h1>
                 </div>
@@ -93,14 +96,12 @@ const Card = ({ showData, loadingData, weather, forecast }) => {
               </div>
             </div>
           </div>
-          <br />
-          <hr />
           <div>
-            <div>
+            <div className="flex flex-col justify-center gap-3 pt-5 pb-5 text-white font-semibold">
               {forecastData?.map((forecastItem, index) => {
                 return (
                   <div
-                    className="flex justify-between items-center w-full pt-3"
+                    className="grid grid-cols-3 items-center w-full py-2 px-4 border border-orange-300 rounded-xl shadow-xl"
                     key={index}
                   >
                     <h4>{forecastItem.dayOfWeek}</h4>
@@ -116,9 +117,7 @@ const Card = ({ showData, loadingData, weather, forecast }) => {
             </div>
           </div>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </div>
   );
 };
