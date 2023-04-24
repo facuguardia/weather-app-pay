@@ -1,5 +1,5 @@
 # Weather App
-Este es un proyecto de aplicación web que ofrece información sobre el pronóstico del tiempo para la ciudad actual del usuario. La aplicación muestra datos en tiempo real sobre la temperatura y pronósticos para los próximos 5 días. Además, incluye la opción de seleccionar una ciudad de una lista y ver la información meteorológica correspondiente.
+Es una App full client-side que ofrece información sobre el pronóstico del tiempo para la ciudad actual del usuario. La aplicación muestra datos en tiempo real sobre la temperatura y pronósticos para los próximos 5 días. Además, incluye la opción de seleccionar una ciudad de una lista y ver la información meteorológica correspondiente.
 
 Este proyecto fue desarrollado como challenge para el puesto de desarrollador frontend en la empresa Personal Pay.
 
